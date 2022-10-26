@@ -2,16 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="javax.servlet.http.Cookie"%>
-<%
-String a=request.getParameter("First_Name");
-String b=request.getParameter("Last_Name");
-String c=request.getParameter("Identification_Id");
-String d=request.getParameter("phone_no");
-String e=request.getParameter("address");
-String f=request.getParameter("payment");
-String g=request.getParameter("b2");
-String h=request.getParameter("FId");
-%>  
+ 
 <% 
 Connection con=null;
 String res=null;
@@ -34,21 +25,11 @@ Class.forName("com.mysql.cj.jdbc.Driver");
 {
 	u.printStackTrace();
 }
-if(g.equals("submit"))
-{
-	PreparedStatement ps=con.prepareStatement("insert into addPassenger(firstName,lastName,identityNumber,phone_no,address,flightid,paymentType,bookedBy) values(?,?,?,?,?,?,?,?)"); 
-	 ps.setString(1, a);
-	 ps.setString(2, b);
-	 ps.setInt(3, Integer.parseInt(c));
-	 ps.setInt(4, Integer.parseInt(d));
-	 ps.setString(5,e);
-	 ps.setInt(6,Integer.parseInt(h));
-	 ps.setString(7,f);
-	 ps.setString(8,res);
+
+	PreparedStatement ps=con.prepareStatement("delete from addPassenger where bookedBy = '"+res+"';"); 
+	
 	 ps.execute();
-	 PreparedStatement ps2=con.prepareStatement("update addtable set no_of_pass= no_of_pass -1 where flight_id= "+h);
-	 ps2.execute();
-}
+	 
 
 
  
@@ -72,10 +53,8 @@ if(g.equals("submit"))
         <br><br> <h2 style="color:#0fad00">Success</h2>
         <img src="./check.png" width="100px">
         
-        <p style="font-size:20px;color:#5C5C5C;">Thank you for booking flight with us </p>
-        <%
-        out.println("<h1>"+res+"</h1>");
-        %>
+        <p style="font-size:20px;color:#5C5C5C;">Thank you , your ticket was cancelled </p>
+        
     <br><br>
         </div>
         

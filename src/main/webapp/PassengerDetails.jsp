@@ -19,7 +19,7 @@ color:white;
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Booking </title>
    <!-- Nav bar starts here -->
-  <nav class="navbar navbar-expand-lg bg-dark">
+   <nav class="navbar navbar-expand-lg bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#" style="color:#e3f2fd;">Abhi's Travel</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,10 +27,10 @@ color:white;
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link " style="color:grey;"aria-current="page" href="index.html" >Home</a>
-        <a class="nav-link" style="color:white;" href="booking.html">Booking</a>
-        <a class="nav-link" style="color:grey;" href="About.html">About Us</a>
-        <a class="nav-link" style="color:grey;" href="Login.html">Login</a>
+    
+        <a class="nav-link" style="color:grey" href="booking.html">Booking</a>
+        <a class="nav-link" style="color:grey" href="Cancel.jsp">Cancel Ticket</a>
+        <a class="nav-link" style="color:grey" href="Logout.jsp">Log out</a>
       </div>
     </div>
   </div>
@@ -60,6 +60,14 @@ color:white;
     <label for="exampleInputPassword1" class="form-label">Address</label>
     <input type="text" class="form-control" name ="address" id="exampleInputPassword1">
   </div>
+    <div class="form-group">
+  <label for="from" >Payment Type:</label>
+  <select class="form-control" id="from" name="payment" required>
+    <option value="Net Banking">Net Banking</option>
+    <option value="Upi">UPI</option>
+   
+  </select>
+</div>
   <% 
    out.println(" <div class='mb-3'> <label for='exampleInputPassword1' class='form-label'>Flight_id</label> <input type='text' class='form-control' name ='FId' value='"+a+"'id='exampleInputPassword1' readonly></div>");
   %>  

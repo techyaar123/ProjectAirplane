@@ -2,11 +2,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-String a=request.getParameter("from");
-String b=request.getParameter("to");
-
-%>
+         <%@ page import="javax.servlet.http.Cookie"%>
+  
 <!doctype html>
 <html lang="en">
   <head>
@@ -33,8 +30,8 @@ String b=request.getParameter("to");
       <div class="navbar-nav">
        
         <a class="nav-link" style="color:grey" href="booking.html">Booking</a>
-        <a class="nav-link" style="color:grey" href="Cancel">Cancel Ticket</a>
-        <a class="nav-link" style="color:grey" href="index.html">Log out</a>
+        <a class="nav-link" style="color:white" href="Cancel.jsp">Cancel Ticket</a>
+        <a class="nav-link" style="color:grey" href="Logout.jsp">Log out</a>
       </div>
     </div>
   </div>
@@ -49,25 +46,35 @@ String b=request.getParameter("to");
   <br>
     <%@page import="java.sql.*"%>
 <%Connection con=null;
+String res=null;
+
 try
 {
 Class.forName("com.mysql.jdbc.Driver");
 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/airplane","root","root");
-	if(a.equals(b)==false)
-	{
-	PreparedStatement ps=con.prepareStatement("select * from addtable where to_place='"+b+"' and from_place='"+a+"';");
+Cookie cookie = null;
+Cookie[] cookies = null;
+
+// Get an array of Cookies associated with the this domain
+cookies = request.getCookies();
+if(cookies!=null)
+{
+	
+	 
+	res=cookies[1].getValue();
+}
+	
+	PreparedStatement ps=con.prepareStatement("select Personid,firstName,lastName,identityNumber,phone_no from addPassenger where bookedBy='"+res+"';");
 	ResultSet rs=ps.executeQuery();
 	out.println("<table border=1 width='55%' class='table table-dark w-auto' style='margin-left:auto;margin-right:auto'> ");
-	out.println("<tr><th>Flight_id<th>Flight_name<th>to<th>from<th>fare<th>no_of_pass<th>Book</tr>");
+	out.println("<tr><th>Flight_id<th>First Name<th>Last Name<th>identity number<th>phone no<th>Cancel</tr>");
 	while(rs.next())
 	{
 		out.println("<tr><td>"+rs.getInt(1)+" <td> "+rs.getString(2)+" <td> "+rs.getString(3)+" <td> "
-	+rs.getString(4)+" <td> "+rs.getInt(5)+" <td> "+rs.getInt(6)+ "<td><form action='PassengerDetails.jsp'><button class='btn btn-primary' type='submit' name='flight_Id' value='"+rs.getInt(1)+"'>Book</button></form>");
+	+rs.getInt(4)+" <td> "+rs.getInt(5)+" <td> "+ "<form action='DeleteTicket.jsp'><button class='btn btn-primary' type='submit' name='flightId' value='"+rs.getInt(1)+"'>Cancel</button></form>");
 	}
 	out.println("</table>");
-	}else{
-		out.println("<div class='alert alert-dark' role='alert'>To and From cannot be same!</div>");
-	}
+	
 }
 	catch(Exception ae)
 	{
